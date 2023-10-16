@@ -5,8 +5,11 @@ class Board:
             self.board.append([False] * width)
 
     def __str__(self):
-        r = ''
+        s = ''
         for row in self.board:
-            r += ' '.join('.X'[i] for i in row)
-            r += '\n'
-        return r
+            s += ' '.join('.X'[i] for i in row)
+            s += '\n'
+        return s
+
+    def update_cell(self, row, col):
+        self.board[row][col] = True
