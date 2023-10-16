@@ -11,5 +11,5 @@ class Board:
             s += '\n'
         return s
 
-    def update_cell(self, row, col):
+    def place_cell(self, row, col):
         self.board[row][col] = True
