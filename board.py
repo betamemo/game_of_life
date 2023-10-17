@@ -14,7 +14,7 @@ class Board:
     def __str__(self):
         s = ''
         for row in self.board:
-            s += ' '.join('.0'[i] for i in row)
+            s += ''.join('.0'[i] for i in row)
             s += '\n'
         return s
 
@@ -22,8 +22,8 @@ class Board:
         self.board[row][col] = True
 
     def next(self):
-        for row in range(self.width):
-            for col in range(self.height):
+        for row in range(self.height):
+            for col in range(self.width):
                 n = self.get_num_neighbors(row, col)
 
                 # birth
@@ -59,3 +59,6 @@ class Board:
             if 0 <= col < self.width:
                 return self.board[row][col]
         return False
+
+    def toggle_cell(self, row, col):
+        self.board[row][col] = True
