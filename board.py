@@ -1,10 +1,15 @@
 class Board:
     def __init__(self, width=3, height=3):
-        self.board = []
         self.width = width
         self.height = height
+        self.board = self.create_board(width, height)
+        self.new_board = self.create_board(width, height)
+
+    def create_board(self, width, height):
+        board = []
         for i in range(height):
-            self.board.append([False] * width)
+            board.append([False] * width)
+        return board
 
     def __str__(self):
         s = ''
@@ -16,16 +21,26 @@ class Board:
     def place_cell(self, row, col):
         self.board[row][col] = True
 
-    def remove_cell(self, row, col):
-        self.board[row][col] = False
-
-    def start(self):
+    def next(self):
         for row in range(self.width):
-            tmp = ''
             for col in range(self.height):
                 n = self.get_num_neighbors(row, col)
-                tmp = tmp + str(n) + ' '
-            print(tmp)
+
+                # birth
+                if self.board[row][col] is False and n == 3:
+                    self.new_board[row][col] = True
+
+                # survive
+                if self.board[row][col] is True and (n == 2 or n == 3):
+                    self.new_board[row][col] = True
+
+                # dead
+                elif self.board[row][col] is True and 2 < n < 3:
+                    self.new_board[row][col] = False
+
+        tmp = self.board
+        self.board = self.new_board
+        self.new_board = tmp
 
     def get_num_neighbors(self, row, col):
         counter = 0
