@@ -30,13 +30,15 @@ class Board:
                 if self.board[row][col] is False and n == 3:
                     self.new_board[row][col] = True
 
-                # survive
-                if self.board[row][col] is True and (n == 2 or n == 3):
-                    self.new_board[row][col] = True
+                if self.board[row][col] is True:
 
-                # dead
-                elif self.board[row][col] is True and 2 < n < 3:
-                    self.new_board[row][col] = False
+                    # survive
+                    if n == 2 or n == 3:
+                        self.new_board[row][col] = True
+
+                    # dead
+                    else:
+                        self.new_board[row][col] = False
 
         tmp = self.board
         self.board = self.new_board
@@ -48,11 +50,11 @@ class Board:
             for c in (-1, 0, 1):
                 if r == c and r == 0:
                     continue
-                if self.get_cell(row + r, col + c):
+                if self.is_alive(row + r, col + c):
                     counter += 1
         return counter
 
-    def get_cell(self, row, col):
+    def is_alive(self, row, col):
         if 0 <= row < self.height:
             if 0 <= col < self.width:
                 return self.board[row][col]
