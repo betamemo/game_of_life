@@ -26,19 +26,17 @@ class Board:
             for col in range(self.width):
                 n = self.get_num_neighbors(row, col)
 
-                # birth
-                if self.board[row][col] is False and n == 3:
-                    self.new_board[row][col] = True
+                if self.board[row][col] is False:
+                    if n == 3:
+                        self.new_board[row][col] = True  # birth
+                    else:
+                        self.new_board[row][col] = False  # empty
 
                 if self.board[row][col] is True:
-
-                    # survive
                     if n == 2 or n == 3:
-                        self.new_board[row][col] = True
-
-                    # dead
+                        self.new_board[row][col] = True  # survive
                     else:
-                        self.new_board[row][col] = False
+                        self.new_board[row][col] = False  # dead
 
         tmp = self.board
         self.board = self.new_board
